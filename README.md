@@ -25,7 +25,7 @@
 
 ## How To Use
 
-To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/). From your command line:
+To clone and run this application, you'll need [Git](https://git-scm.com) and [.NET 5.0](https://dotnet.microsoft.com/en-us/download/dotnet/5.0). From your command line:
 
 ```bash
 # Clone this repository
@@ -38,6 +38,9 @@ $ cd netcore5-microservice
 $ cd PlatformService
 # or
 $ cd CommandsService
+
+# Check your net core version
+$ dotnet --version
 
 # Build the microservice and run it
 $ dotnet restore
