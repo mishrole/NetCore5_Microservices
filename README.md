@@ -124,6 +124,14 @@ $ kubectl get deployments
 
 # Check the status of the services
 $ kubectl get services
+
+# Get Ingress Nginx Controller
+$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.3.0/deploy/static/provider/cloud/deploy.yaml
+
+# Check Ingress Nginx pods
+$ kubectl get namespaces
+$ kubectl get pods --namespace ingress-nginx
+
 ```
 
 > **Note**
