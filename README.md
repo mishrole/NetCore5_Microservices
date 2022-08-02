@@ -132,19 +132,27 @@ $ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/co
 $ kubectl get namespaces
 $ kubectl get pods --namespace ingress-nginx
 
+# Apply the Ingress Nginx Routing Service
+$ kubectl apply -f ingress-nginx-routing-service.yaml
 ```
 
-> **Note**
+> **Note - Ingress Nginx** 
+> 
+> You can change the Ingress Nginx Controller to use a different domain name. For example, you can change the domain name to `my-app.com` and then you can access the app at `http://my-app.com`.
+> 
+> This requires you to update the `ingress-routing-service.yaml` file in the `K8S` folder and allow the new domain name in your host file (`C:\Windows\System32\drivers\etc\hosts`) pointing `127.0.0.1 my-app.com`
+
+> **Note - K8S**
 > 
 > If you make changes to an image and push it to the Docker Hub, you'll need to update and apply the K8S manifest, and rollout the active deployment to use latest image.
 >
 > Apply the manifest:
 >
-> ```$ kubectl apply -f platforms-deploy.yaml```
+> `$ kubectl apply -f platforms-deploy.yaml`
 >
 > Rollout the active deployment:
 >
-> ```$ kubectl rollout restart deployment platforms-deploy```
+> `$ kubectl rollout restart deployment platforms-deploy`
 
 ## License
 
