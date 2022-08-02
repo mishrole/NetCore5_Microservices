@@ -22,7 +22,7 @@
 
 * Microservices:
   * PlatformService
-  * CommandsService
+  * CommandService
 * Docker
 * K8s
 * SQL Server
@@ -58,7 +58,7 @@ To run the project locally, run the following commands:
 # Go into a service
 $ cd PlatformService
 # or
-$ cd CommandsService
+$ cd CommandService
 
 # Build and run it
 $ dotnet restore
@@ -81,12 +81,12 @@ $ cd PlatformService
 $ docker build -t <your docker hub id>/platformservice .
 $ docker run -p 5001:80 -d <your docker hub id>/platformservice
 
-# Go into CommandsService
-$ cd CommandsService
+# Go into CommandService
+$ cd CommandService
 
-# Build and run the CommandsService in a container
-$ docker build -t <your docker hub id>/commandsservice .
-$ docker run -p 6001:80 -d <your docker hub id>/commandsservice
+# Build and run the CommandService in a container
+$ docker build -t <your docker hub id>/commandservice .
+$ docker run -p 6001:80 -d <your docker hub id>/commandservice
 
 # Check the status of the containers
 $ docker ps
@@ -94,7 +94,7 @@ $ docker ps
 
 > **Note**
 > 
-> You can also check my [Docker Hub Account](https://hub.docker.com/u/mishrole) to see PlatformService and CommandsService images.
+> You can also check my [Docker Hub Account](https://hub.docker.com/u/mishrole) to see PlatformService and CommandService images.
 
 ## Run with Kubernetes
 To run the project with Kubernetes, run the following commands:
@@ -103,11 +103,11 @@ To run the project with Kubernetes, run the following commands:
 # Go into K8S
 $ cd K8S
 
-# Apply the platformService and commandsService manifests
+# Apply the platformService and commandService manifests
 $ kubectl apply -f platforms-deploy.yaml
 $ kubectl apply -f commands-deploy.yaml
 
-# Apply the platformService and commandsService services
+# Apply the platformService and commandService services
 $ kubectl apply -f platforms-nodeport-service.yaml
 $ kubectl apply -f commands-nodeport-service.yaml
 
