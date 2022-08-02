@@ -6,14 +6,15 @@
 </h1>
 
 <h4 align="center">
-  A simple .Net Core 5.0 Web API Microservice with Docker, K8s, and GRPC
+  A simple .Net Core 5.0 Web API Microservice with Docker, K8s, SQL Server, RabbitMQ and gRPC
 </h4>
 
 <p align="center">
   <a href="#key-technologies">Key technologies</a> •
   <a href="#prerequisites">Prerequisites</a> •
   <a href="#run-locally">Run locally</a> •
-  <a href="#run-in-a-container">Run in a container</a> •
+  <a href="#run-with-docker">Run with Docker</a> •
+  <a href="#run-with-kubernetes">Run with Kubernetes</a> •
   <a href="#license">License</a>
 </p>
 
@@ -22,9 +23,11 @@
 * Microservices:
   * PlatformService
   * CommandsService
-* GRPC
 * Docker
 * K8s
+* SQL Server
+* RabbitMQ
+* gRPC
 
 ## Prerequisites
 To clone and run this application, you'll need [Git](https://git-scm.com) and [.NET 5.0](https://dotnet.microsoft.com/en-us/download/dotnet/5.0).
@@ -49,6 +52,7 @@ $ dotnet --version
 ```
 
 ### Run locally
+To run the project locally, run the following commands:
 
 ```bash
 # Go into a service
@@ -66,7 +70,8 @@ $ dotnet run
 > 
 > To stop the app, press Ctrl+C
 
-### Run in a container
+### Run with Docker
+To run the project with Docker, run the following commands:
 
 ```bash
 # Go into PlatformService
@@ -81,10 +86,39 @@ $ cd CommandsService
 
 # Build and run the CommandsService in a container
 $ docker build -t <your docker hub id>/commandsservice .
-$ docker run -p 5002:80 -d <your docker hub id>/commandsservice
+$ docker run -p 6001:80 -d <your docker hub id>/commandsservice
 
 # Check the status of the containers
 $ docker ps
+```
+
+> **Note**
+> 
+> You can also check my [Docker Hub Account](https://hub.docker.com/u/mishrole) to see PlatformService and CommandsService images.
+
+## Run with Kubernetes
+To run the project with Kubernetes, run the following commands:
+
+```bash
+# Go into K8S
+$ cd K8S
+
+# Apply the platformService and commandsService manifests
+$ kubectl apply -f platforms-deploy.yaml
+$ kubectl apply -f commands-deploy.yaml
+
+# Apply the platformService and commandsService services
+$ kubectl apply -f platforms-nodeport-service.yaml
+$ kubectl apply -f commands-nodeport-service.yaml
+
+# Check the status of the pods
+$ kubectl get pods
+
+# Check the status of the deployments
+$ kubectl get deployments
+
+# Check the status of the services
+$ kubectl get services
 ```
 
 ## License
