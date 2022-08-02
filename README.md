@@ -12,8 +12,7 @@
 <p align="center">
   <a href="#key-technologies">Key technologies</a> •
   <a href="#prerequisites">Prerequisites</a> •
-  <a href="#run-locally">Run locally</a> •
-  <a href="#run-with-docker">Run with Docker</a> •
+  <a href="#test-independently">Test Independently</a> •
   <a href="#run-with-kubernetes">Run with Kubernetes</a> •
   <a href="#license">License</a>
 </p>
@@ -25,6 +24,7 @@
   * CommandService
 * Docker
 * K8s
+* Ingress Nginx
 * SQL Server
 * RabbitMQ
 * gRPC
@@ -33,10 +33,14 @@
 To clone and run this application, you'll need [Git](https://git-scm.com) and [.NET 5.0](https://dotnet.microsoft.com/en-us/download/dotnet/5.0).
 <br>
 If you want to run the app in a container, you'll need [Docker](https://www.docker.com/products/docker-desktop/) and a [Docker Hub Account](https://hub.docker.com/).
+<br>
+Also, you'll need to check out [Ingress Nginx](https://github.com/kubernetes/ingress-nginx) LoadBalancer and [gRPC](https://grpc.io/).
 
 > **Note**
 > 
-> Make sure you have Docker and Kubernetes installed and running on your machine
+> Make sure you have Docker installed and running on your machine. Don't forget to [enable Kubernetes on Docker Desktop](https://docs.docker.com/docker-desktop/kubernetes/).
+> 
+> Depending on your OS, you'll need to install [Kubernetes](https://kubernetes.io/) and [Kubectl](https://kubectl.io/).
 
 From your command line:
 
@@ -51,8 +55,10 @@ $ cd netcore5-microservice
 $ dotnet --version
 ```
 
-### Run locally
-To run the project locally, run the following commands:
+## Test independently
+
+### Locally
+To test each service locally, run the following commands:
 
 ```bash
 # Go into a service
@@ -70,23 +76,23 @@ $ dotnet run
 > 
 > To stop the app, press Ctrl+C
 
-### Run with Docker
-To run the project with Docker, run the following commands:
+### Docker
+To test each service with Docker, run the following commands:
 
 ```bash
 # Go into PlatformService
 $ cd PlatformService
 
 # Build and run PlatformService in a container
-$ docker build -t <your docker hub id>/platformservice .
-$ docker run -p 5001:80 -d <your docker hub id>/platformservice
+$ docker build -t <your Docker Hub Id>/platformservice .
+$ docker run -p 5001:80 -d <your Docker Hub Id>/platformservice
 
 # Go into CommandService
 $ cd CommandService
 
 # Build and run the CommandService in a container
-$ docker build -t <your docker hub id>/commandservice .
-$ docker run -p 6001:80 -d <your docker hub id>/commandservice
+$ docker build -t <your Docker Hub Id>/commandservice .
+$ docker run -p 6001:80 -d <your Docker Hub Id>/commandservice
 
 # Check the status of the containers
 $ docker ps
@@ -94,7 +100,7 @@ $ docker ps
 
 > **Note**
 > 
-> You can also check my [Docker Hub Account](https://hub.docker.com/u/mishrole) to see PlatformService and CommandService images.
+> You can also check [my Docker Hub account](https://hub.docker.com/u/mishrole) to see PlatformService and CommandService images.
 
 ## Run with Kubernetes
 To run the project with Kubernetes, run the following commands:
@@ -107,9 +113,8 @@ $ cd K8S
 $ kubectl apply -f platforms-deploy.yaml
 $ kubectl apply -f commands-deploy.yaml
 
-# Apply the platformService and commandService services
+# Apply the platformService NodePort service
 $ kubectl apply -f platforms-nodeport-service.yaml
-$ kubectl apply -f commands-nodeport-service.yaml
 
 # Check the status of the pods
 $ kubectl get pods
@@ -120,6 +125,18 @@ $ kubectl get deployments
 # Check the status of the services
 $ kubectl get services
 ```
+
+> **Note**
+> 
+> If you make changes to an image and push it to the Docker Hub, you'll need to update and apply the K8S manifest, and rollout the active deployment to use latest image.
+>
+> Apply the manifest:
+>
+> ```$ kubectl apply -f platforms-deploy.yaml```
+>
+> Rollout the active deployment:
+>
+> ```$ kubectl rollout restart deployment platforms-deploy```
 
 ## License
 
